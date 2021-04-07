@@ -3,7 +3,7 @@ import bs4
 import pywhatkit
 
 
-url='https://www.cricbuzz.com/live-cricket-scorecard/35043/rsa-vs-pak-3rd-odi-pakistan-tour-of-south-africa-2021'
+url=''
 
 res= requests.get(url)
 soup=bs4.BeautifulSoup(res.text,'html.parser')

@@ -1,19 +1,23 @@
-from selenium import webdriver
-from bs4 import BeautifulSoup
+import requests
+import bs4
+import pywhatkit
 
 
-path="D:/chromedriver"
-driver=webdriver.Chrome(path)
-driver.get("https://www.cricbuzz.com/cricket-series/3472/indian-premier-league-2021/matches")
-content = driver.page_source.encode('utf-8').strip()
-soup=BeautifulSoup(content,"html.parser")
-table= soup.findAll("div",{"class":""})
-for matches in table:
-    print(matches.text)
-driver.quit()
+url='https://www.cricbuzz.com/live-cricket-scorecard/35043/rsa-vs-pak-3rd-odi-pakistan-tour-of-south-africa-2021'
 
+res= requests.get(url)
+soup=bs4.BeautifulSoup(res.text,'html.parser')
 
+score=soup.findAll("div",{"class":"cb-col cb-col-100 cb-scrd-hdr-rw"})
+a=[]
+for i in score:
+    a.append(i.text)
+livescore=a[0]
+second=a[1]
+final=livescore + " " + second
+print(final)
 
+pywhatkit.sendwhatmsg("+91********",final,20,10)
 
 
 
